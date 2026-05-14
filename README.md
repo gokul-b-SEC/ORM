@@ -1,6 +1,6 @@
 # Ex01 Django ORM Web Application
 
-**Date:** 25/11/2025
+**Date:** 06/05/2025
 
 ---
 
@@ -44,23 +44,19 @@ Execute Django admin using localhost and create details for 10 entries.
 
 ```python
 from django.db import models
-from django.contrib import admin
 
-class Product(models.Model):
-    serialNo = models.CharField(primary_key=True, max_length=8)
-    ProductName = models.CharField(max_length=30)
-    ManufactureDate = models.DateTimeField()
-    Price = models.IntegerField()
+class FoodOrder(models.Model):
+    Order_ID = models.IntegerField(primary_key=True)
+    CustomerName = models.CharField(max_length=50)
+    RestaurantName = models.CharField(max_length=50)
+    FoodItem = models.CharField(max_length=100)
     Quantity = models.IntegerField()
+    Price = models.FloatField()
+    DeliveryAddress = models.CharField(max_length=200)
+    OrderStatus = models.CharField(max_length=30)
 
-class ProductAdmin(admin.ModelAdmin):
-    list_display = [
-        "serialNo",
-        "ProductName",
-        "ManufactureDate",
-        "Price",
-        "Quantity"
-    ]
+    def __str__(self):
+        return self.CustomerName
 ```
 
 ---
@@ -69,16 +65,29 @@ class ProductAdmin(admin.ModelAdmin):
 
 ```python
 from django.contrib import admin
-from .models import Product, ProductAdmin
+from .models import FoodOrder
 
-admin.site.register(Product, ProductAdmin)
+class FoodOrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'Order_ID',
+        'CustomerName',
+        'RestaurantName',
+        'FoodItem',
+        'Quantity',
+        'Price',
+        'DeliveryAddress',
+        'OrderStatus'
+    )
+
+admin.site.register(FoodOrder, FoodOrderAdmin)
 ```
 
 ---
 
 # OUTPUT
 
-![Output](output.png)
+<img width="1919" height="1079" alt="Screenshot 2026-05-06 212408" src="https://github.com/user-attachments/assets/aa3dc3de-f53e-4de3-854b-e950a7097c66" />
+
 
 ---
 
